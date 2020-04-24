@@ -212,6 +212,8 @@
             this.ClientSize = new System.Drawing.Size(262, 419);
             this.Controls.Add(this.buildButton);
             this.Controls.Add(this.parametersGroupBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "AnglesSAPR";
             this.parametersGroupBox.ResumeLayout(false);
