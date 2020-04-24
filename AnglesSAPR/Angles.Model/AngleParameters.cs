@@ -15,7 +15,7 @@ namespace Angles.Model
         private double _diameter;
 
         /// <summary>
-        ///     Расстояние от крайней грани до центра первого отверстия L
+        ///     Расстояние от крайней грани до центра первого отверстия
         /// </summary>
         private double _distance;
 
@@ -32,7 +32,7 @@ namespace Angles.Model
         /// <summary>
         ///     Количество отверстий на каждой плоскости
         /// </summary>
-        private double _numberOfHoles;
+        private int _numberOfHoles;
 
         /// <summary>
         ///     Толщина уголка
@@ -119,7 +119,7 @@ namespace Angles.Model
         /// <summary>
         ///     Количество отверстий на каждой плоскости
         /// </summary>
-        public double NumberOfHoles
+        public int NumberOfHoles
         {
             get => _numberOfHoles;
             set
@@ -182,8 +182,13 @@ namespace Angles.Model
         /// <param name="thickness"></param>
         /// <param name="width"></param>
         public AngleParameters(double diameter, double distance, double height,
-            double length, double numberOfHoles, double thickness, double width)
+            double length, int numberOfHoles, double thickness, double width)
         {
+            int calculatedNumberOfHoles = Convert.ToInt32(Math.Truncate((height - length - distance) / (diameter + 5)));
+            if (numberOfHoles > calculatedNumberOfHoles)
+            {
+                throw new ArgumentException("Такое количество отверстий недопустимо!");
+            }
             Diameter = diameter;
             Distance = distance;
             Height = height;

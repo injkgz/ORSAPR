@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             this.parametersGroupBox = new System.Windows.Forms.GroupBox();
+            this.numberOfHolesTextBox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lengthTextBox = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.distanceTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.thicknessTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -39,11 +44,6 @@
             this.heightTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buildButton = new System.Windows.Forms.Button();
-            this.distanceTextBox = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lengthTextBox = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numberOfHolesTextBox = new System.Windows.Forms.TextBox();
             this.parametersGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,6 +70,51 @@
             this.parametersGroupBox.TabStop = false;
             this.parametersGroupBox.Text = "Параметры уголка";
             // 
+            // numberOfHolesTextBox
+            // 
+            this.numberOfHolesTextBox.Location = new System.Drawing.Point(10, 338);
+            this.numberOfHolesTextBox.Name = "numberOfHolesTextBox";
+            this.numberOfHolesTextBox.Size = new System.Drawing.Size(100, 20);
+            this.numberOfHolesTextBox.TabIndex = 13;
+            this.numberOfHolesTextBox.TextChanged += new System.EventHandler(this.numberOfHolesTextBox_TextChanged);
+            this.numberOfHolesTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.TextBox_Validating);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(7, 321);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(132, 13);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Количество отверстий N";
+            // 
+            // lengthTextBox
+            // 
+            this.lengthTextBox.Location = new System.Drawing.Point(10, 294);
+            this.lengthTextBox.Name = "lengthTextBox";
+            this.lengthTextBox.Size = new System.Drawing.Size(100, 20);
+            this.lengthTextBox.TabIndex = 11;
+            this.lengthTextBox.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.lengthTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.TextBox_Validating);
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(7, 251);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(225, 40);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Расстояние от грани, прилежащей к другой плоскости, до центра ближайшего отверсти" +
+    "я";
+            // 
+            // distanceTextBox
+            // 
+            this.distanceTextBox.Location = new System.Drawing.Point(10, 224);
+            this.distanceTextBox.Name = "distanceTextBox";
+            this.distanceTextBox.Size = new System.Drawing.Size(100, 20);
+            this.distanceTextBox.TabIndex = 9;
+            this.distanceTextBox.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.distanceTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.TextBox_Validating);
+            // 
             // label5
             // 
             this.label5.Location = new System.Drawing.Point(7, 192);
@@ -84,6 +129,8 @@
             this.thicknessTextBox.Name = "thicknessTextBox";
             this.thicknessTextBox.Size = new System.Drawing.Size(100, 20);
             this.thicknessTextBox.TabIndex = 7;
+            this.thicknessTextBox.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.thicknessTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.TextBox_Validating);
             // 
             // label4
             // 
@@ -100,6 +147,8 @@
             this.diameterTextBox.Name = "diameterTextBox";
             this.diameterTextBox.Size = new System.Drawing.Size(100, 20);
             this.diameterTextBox.TabIndex = 5;
+            this.diameterTextBox.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.diameterTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.TextBox_Validating);
             // 
             // label3
             // 
@@ -116,6 +165,8 @@
             this.widthTextBox.Name = "widthTextBox";
             this.widthTextBox.Size = new System.Drawing.Size(100, 20);
             this.widthTextBox.TabIndex = 3;
+            this.widthTextBox.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.widthTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.TextBox_Validating);
             // 
             // label2
             // 
@@ -132,6 +183,8 @@
             this.heightTextBox.Name = "heightTextBox";
             this.heightTextBox.Size = new System.Drawing.Size(100, 20);
             this.heightTextBox.TabIndex = 1;
+            this.heightTextBox.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.heightTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.TextBox_Validating);
             // 
             // label1
             // 
@@ -150,45 +203,7 @@
             this.buildButton.TabIndex = 1;
             this.buildButton.Text = "Построить уголок";
             this.buildButton.UseVisualStyleBackColor = true;
-            // 
-            // distanceTextBox
-            // 
-            this.distanceTextBox.Location = new System.Drawing.Point(10, 224);
-            this.distanceTextBox.Name = "distanceTextBox";
-            this.distanceTextBox.Size = new System.Drawing.Size(100, 20);
-            this.distanceTextBox.TabIndex = 9;
-            // 
-            // label6
-            // 
-            this.label6.Location = new System.Drawing.Point(7, 251);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(225, 40);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Расстояние от грани, прилежащей к другой плоскости, до центра ближайшего отверсти" +
-    "я";
-            // 
-            // lengthTextBox
-            // 
-            this.lengthTextBox.Location = new System.Drawing.Point(10, 294);
-            this.lengthTextBox.Name = "lengthTextBox";
-            this.lengthTextBox.Size = new System.Drawing.Size(100, 20);
-            this.lengthTextBox.TabIndex = 11;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 321);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(132, 13);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "Количество отверстий N";
-            // 
-            // numberOfHolesTextBox
-            // 
-            this.numberOfHolesTextBox.Location = new System.Drawing.Point(10, 338);
-            this.numberOfHolesTextBox.Name = "numberOfHolesTextBox";
-            this.numberOfHolesTextBox.Size = new System.Drawing.Size(100, 20);
-            this.numberOfHolesTextBox.TabIndex = 13;
+            this.buildButton.Click += new System.EventHandler(this.buildButton_Click);
             // 
             // MainForm
             // 
