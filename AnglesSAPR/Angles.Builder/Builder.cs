@@ -99,7 +99,7 @@ namespace Angles.KompasWrapper
         /// <param name="height"></param>
         /// <param name="width"></param>
         /// <param name="thickness"></param>
-        public void BuildPlane(ksPart part, ksEntity plane, double height, double width,
+        private void BuildPlane(ksPart part, ksEntity plane, double height, double width,
             double thickness)
         {
             ksEntity sketch = part.NewEntity((short) Obj3dType.o3d_sketch);
@@ -136,7 +136,7 @@ namespace Angles.KompasWrapper
         /// <param name="thickness"></param>
         /// <param name="numberOfHoles"></param>
         /// <param name="distance"></param>
-        public void BuildHole(ksPart part, ksEntity plane, double xc, double yc,
+        private void BuildHole(ksPart part, ksEntity plane, double xc, double yc,
             double rad, double thickness, int numberOfHoles, double distance)
         {
             ksEntity sketch = part.NewEntity((short) Obj3dType.o3d_sketch);
