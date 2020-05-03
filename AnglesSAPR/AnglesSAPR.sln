@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angles.Model", "Angles.Model\Angles.Model.csproj", "{7738FD88-A252-4CA2-8D84-C7068C0E4C98}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angles.View", "Angles.View\Angles.View.csproj", "{86B80A61-D44E-4984-9C50-449931414944}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DAFB04DE-8952-42EB-A5DB-40C6D6C5F0C8} = {DAFB04DE-8952-42EB-A5DB-40C6D6C5F0C8}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angles.Builder", "Angles.KompasWrapper\Angles.Builder.csproj", "{DAFB04DE-8952-42EB-A5DB-40C6D6C5F0C8}"
 EndProject
