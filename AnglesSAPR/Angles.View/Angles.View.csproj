@@ -106,7 +106,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Angles.KompasWrapper\Angles.Builder.csproj">
+    <ProjectReference Include="..\Angles.Builder\Angles.Builder.csproj">
       <Project>{dafb04de-8952-42eb-a5db-40c6d6c5f0c8}</Project>
       <Name>Angles.Builder</Name>
     </ProjectReference>
