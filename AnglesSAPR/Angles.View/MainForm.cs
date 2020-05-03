@@ -18,7 +18,15 @@ namespace Angles.View
 
         #region Private fields
 
-        private AngleParameters parameters;
+        /// <summary>
+        ///     Плоскость #1
+        /// </summary>
+        private PlaneParameters _planeXOY;
+
+        /// <summary>
+        ///     Плоскость #2
+        /// </summary>
+        private PlaneParameters _planeYOZ;
 
         #endregion
 
@@ -33,31 +41,22 @@ namespace Angles.View
 
         #region Private methods
 
+        /// <summary>
+        ///     Обработчик события нажатия на кнопку построить
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buildButton_Click(object sender, EventArgs e)
         {
-            var isCorrectParameters = true;
-            try
-            {
-                isCorrectParameters = true;
-                parameters = new AngleParameters(Convert.ToDouble(diameterTextBox.Text),
-                    Convert.ToDouble(distanceTextBox.Text),
-                    Convert.ToDouble(heightTextBox.Text),
-                    Convert.ToDouble(lengthTextBox.Text),
-                    Convert.ToInt32(numberOfHolesTextBox.Text),
-                    Convert.ToDouble(thicknessTextBox.Text),
-                    Convert.ToDouble(widthTextBox.Text));
-            }
-            catch (ArgumentException exception)
-            {
-                isCorrectParameters = false;
-                MessageBox.Show(
-                    exception.Message);
-            }
-
-            if (isCorrectParameters)
+            if (AngleValidator.ValidateAngle(_planeXOY, _planeYOZ))
             {
                 _builder.StartKompas();
-                _builder.Build(parameters);
+                _builder.Build(_planeXOY, _planeYOZ);
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Сначала введите корректно параметры обоих плоскостей!\nШирина и толщина каждой плоскости обязательно должны быть равны!");
             }
         }
 
@@ -103,6 +102,11 @@ namespace Angles.View
             }
         }
 
+        /// <summary>
+        ///     Обработчик события изменения текста в numberOfHolesTextBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void numberOfHolesTextBox_TextChanged(object sender, EventArgs e)
         {
             if (numberOfHolesTextBox.Text == "")
@@ -118,6 +122,67 @@ namespace Angles.View
                 {
                     MessageBox.Show("Вы вводите некорректные символы!\n" +
                                     exception.Message);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Обработчик события нажатия на кнопку сохранить
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void savePlaneButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (firstPlaneRadioButton.Checked)
+                {
+                    _planeXOY = new PlaneParameters(
+                        Convert.ToDouble(diameterTextBox.Text),
+                        Convert.ToDouble(distanceTextBox.Text),
+                        Convert.ToDouble(heightTextBox.Text),
+                        Convert.ToDouble(lengthTextBox.Text),
+                        Convert.ToInt32(numberOfHolesTextBox.Text),
+                        Convert.ToDouble(thicknessTextBox.Text),
+                        Convert.ToDouble(widthTextBox.Text));
+                }
+                else
+                {
+                    _planeYOZ = new PlaneParameters(
+                        Convert.ToDouble(diameterTextBox.Text),
+                        Convert.ToDouble(distanceTextBox.Text),
+                        Convert.ToDouble(heightTextBox.Text),
+                        Convert.ToDouble(lengthTextBox.Text),
+                        Convert.ToInt32(numberOfHolesTextBox.Text),
+                        Convert.ToDouble(thicknessTextBox.Text),
+                        Convert.ToDouble(widthTextBox.Text));
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(
+                    exception.Message);
+            }
+
+            if (_planeXOY != null && _planeYOZ != null)
+            {
+                if (!AngleValidator.ValidateAngle(_planeXOY, _planeYOZ))
+                {
+                    MessageBox.Show(
+                        "Ширина и толщина каждой плоскости обязательно должны быть равны!");
+                }
+            }
+        }
+
+        private void secondPlaneRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (secondPlaneRadioButton.Checked)
+            {
+                if (_planeXOY == null)
+                {
+                    secondPlaneRadioButton.Checked = false;
+                    firstPlaneRadioButton.Checked = true;
+                    MessageBox.Show("Сначала заполните первую плоскость!");
                 }
             }
         }

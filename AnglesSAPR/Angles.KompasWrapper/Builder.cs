@@ -20,7 +20,7 @@ namespace Angles.KompasWrapper
         #region Public methods
 
         /// <summary>
-        ///     Запуск KOMPAS если он не запущен.
+        ///     Запуск KOMPAS
         /// </summary>
         public void StartKompas()
         {
@@ -59,36 +59,46 @@ namespace Angles.KompasWrapper
             }
         }
 
-        public void Build(AngleParameters angleParameters)
+        /// <summary>
+        ///     Построение уголка
+        /// </summary>
+        /// <param name="planeXY">Плоскость #1</param>
+        /// <param name="planeYZ">Плоскость #2</param>
+        public void Build(PlaneParameters planeXY, PlaneParameters planeYZ)
         {
-            var distance =
-                (angleParameters.Height - angleParameters.Distance -
-                 angleParameters.Length) / (angleParameters.NumberOfHoles - 2);
-
             ksDocument3D document3D = _kompasObject.Document3D();
             document3D.Create();
 
             ksPart part = document3D.GetPart((short) Part_Type.pTop_Part);
 
             ksEntity planeXOY = part.GetDefaultEntity((short) Obj3dType.o3d_planeXOY);
-            BuildPlane(part, planeXOY, angleParameters.Height + angleParameters.Thickness,
-                angleParameters.Width, angleParameters.Thickness);
+            BuildPlane(part, planeXOY, planeXY.Height + planeXY.Thickness,
+                planeXY.Width, planeXY.Thickness);
 
-            BuildHole(part, planeXOY, angleParameters.Width / 2,
-                angleParameters.Length + angleParameters.Thickness,
-                angleParameters.Diameter / 2,
-                angleParameters.Thickness, angleParameters.NumberOfHoles, distance);
+            BuildHole(part, planeXOY, planeXY.Width / 2,
+                planeXY.Length + planeXY.Thickness,
+                planeXY.Diameter / 2,
+                planeXY.Thickness, planeXY.NumberOfHoles,
+                planeXY.DistanceBetweenHoles);
 
 
             ksEntity planeYOZ = part.GetDefaultEntity((short) Obj3dType.o3d_planeXOZ);
-            BuildPlane(part, planeYOZ, angleParameters.Height, angleParameters.Width,
-                angleParameters.Thickness);
+            BuildPlane(part, planeYOZ, planeYZ.Height, planeYZ.Width,
+                planeYZ.Thickness);
 
-            BuildHole(part, planeYOZ, angleParameters.Width / 2, angleParameters.Length,
-                angleParameters.Diameter / 2, angleParameters.Thickness,
-                angleParameters.NumberOfHoles, distance);
+            BuildHole(part, planeYOZ, planeYZ.Width / 2, planeYZ.Length,
+                planeYZ.Diameter / 2, planeYZ.Thickness,
+                planeYZ.NumberOfHoles, planeYZ.DistanceBetweenHoles);
         }
 
+        /// <summary>
+        ///     Построение одной плоскости
+        /// </summary>
+        /// <param name="part"></param>
+        /// <param name="plane"></param>
+        /// <param name="height"></param>
+        /// <param name="width"></param>
+        /// <param name="thickness"></param>
         public void BuildPlane(ksPart part, ksEntity plane, double height, double width,
             double thickness)
         {
@@ -115,6 +125,17 @@ namespace Angles.KompasWrapper
             extrude.Create();
         }
 
+        /// <summary>
+        ///     Построение отверстий в плоскости
+        /// </summary>
+        /// <param name="part"></param>
+        /// <param name="plane"></param>
+        /// <param name="xc"></param>
+        /// <param name="yc"></param>
+        /// <param name="rad"></param>
+        /// <param name="thickness"></param>
+        /// <param name="numberOfHoles"></param>
+        /// <param name="distance"></param>
         public void BuildHole(ksPart part, ksEntity plane, double xc, double yc,
             double rad, double thickness, int numberOfHoles, double distance)
         {
