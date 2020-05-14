@@ -268,7 +268,7 @@ namespace Angles.Model
             double maxValue,
             double minValue)
         {
-            if (value <= maxValue ||
+            if (value <= maxValue &&
                 value >= minValue)
             {
                 return value;
@@ -276,7 +276,8 @@ namespace Angles.Model
 
             throw new ArgumentOutOfRangeException(parameterType +
                                                   ". Значение : " + value +
-                                                  " не входит в диапазон допустимых значений для данного параметра ");
+                                                  " не входит в диапазон допустимых значений для данного параметра от " +
+                                                  minValue + " до " + maxValue);
         }
 
         #endregion
