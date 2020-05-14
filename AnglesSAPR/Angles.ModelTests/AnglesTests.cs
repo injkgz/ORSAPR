@@ -8,83 +8,50 @@ namespace Angles.ModelTests
     public class ModelTests
     {
         [Test]
-        [TestCase(5, 10, 200, 30, 4, 5, 20, true,
+        [TestCase(300, 10, 200, 30, 4, 5, 20,
             TestName =
-                "Тест для метода Validate, когда две плоскости введены корректно")]
-        [TestCase(5, 10, 200, 30, 4, 5, 20, false,
+                "Тест на создание объекта PlaneParameters с некорректными значениями диаметра 1 ")]
+        [TestCase(5, 171, 200, 30, 1, 5, 20,
             TestName =
-                "Тест для метода Validate, когда две плоскости введены некорректно")]
-        public void AngleValidatorValidate_Test(double diameter, double distance,
-            double height, double length,
-            int numberOfHoles, double thickness, double width, bool expectedResult)
-        {
-            var planeXY = new PlaneParameters(diameter, distance, height, length,
-                numberOfHoles, thickness, width);
-
-            PlaneParameters planeZY;
-
-            if (expectedResult)
-            {
-                planeZY = new PlaneParameters(diameter, distance, height, length,
-                    numberOfHoles, thickness, width);
-
-            }
-            else
-            {
-                planeZY = new PlaneParameters(diameter, distance, height, length,
-                    numberOfHoles, thickness, width+1);
-            }
-            
-
-            var result = AngleValidator.ValidateAngle(planeXY, planeZY);
-            Assert.AreEqual(expectedResult, result);
-        }
-
-        [Test]
-        [TestCase(PlaneParameters.MaxDiameter + 1, 10, 200, 30, 4, 5, 20,
+                "Тест на создание объекта PlaneParameters с некорректными значениями дистанции 1")]
+        [TestCase(5, 10, 201, 30, 4, 5, 20,
             TestName =
-                "Тест на создание объекта PlaneParameters с некорректными значениями диаметра")]
-        [TestCase(5, PlaneParameters.MaxRange + 1, 200, 30, 4, 5, 20,
+                "Тест на создание объекта PlaneParameters с некорректными значениями высоты 1")]
+        [TestCase(5, 10, 200, 171, 1, 5, 20,
             TestName =
-                "Тест на создание объекта PlaneParameters с некорректными значениями дистанции")]
-        [TestCase(5, 10, PlaneParameters.MaxHeight + 1, 30, 4, 5, 20,
-            TestName =
-                "Тест на создание объекта PlaneParameters с некорректными значениями высоты")]
-        [TestCase(5, 10, 200, PlaneParameters.MaxRange + 1, 4, 5, 20,
-            TestName =
-                "Тест на создание объекта PlaneParameters с некорректными значениями дистанции")]
+                "Тест на создание объекта PlaneParameters с некорректными значениями дистанции 1")]
         [TestCase(5, 10, 200, 30, -1, 5, 20,
             TestName =
-                "Тест на создание объекта PlaneParameters с некорректными значениями количества отверстий")]
-        [TestCase(5, 10, 200, 30, 4, PlaneParameters.MaxThickness + 1, 20,
+                "Тест на создание объекта PlaneParameters с некорректными значениями количества отверстий 1")]
+        [TestCase(5, 10, 200, 30, 4, 21, 20,
             TestName =
-                "Тест на создание объекта PlaneParameters с некорректными значениями толщины")]
-        [TestCase(5, 10, 200, 30, 4, 5, PlaneParameters.MaxWidth + 1,
+                "Тест на создание объекта PlaneParameters с некорректными значениями толщины 1")]
+        [TestCase(5, 10, 200, 30, 4, 5, 101,
             TestName =
-                "Тест на создание объекта PlaneParameters с некорректными значениями ширины")]
-        [TestCase(PlaneParameters.MinDiameter - 1, 10, 200, 30, 4, 5, 20,
+                "Тест на создание объекта PlaneParameters с некорректными значениями ширины 1")]
+        [TestCase(4, 10, 200, 30, 4, 5, 20,
             TestName =
-                "Тест на создание объекта PlaneParameters с некорректными значениями диаметра")]
-        [TestCase(5, PlaneParameters.MinRange - 1, 200, 30, 4, 5, 20,
+                "Тест на создание объекта PlaneParameters с некорректными значениями диаметра 2")]
+        [TestCase(5, 9, 200, 30, 4, 5, 20,
             TestName =
-                "Тест на создание объекта PlaneParameters с некорректными значениями дистанции")]
-        [TestCase(5, 10, PlaneParameters.MinHeight - 1, 30, 4, 5, 20,
+                "Тест на создание объекта PlaneParameters с некорректными значениями дистанции 2")]
+        [TestCase(5, 10, 49, 30, 1, 5, 20,
             TestName =
-                "Тест на создание объекта PlaneParameters с некорректными значениями высоты")]
-        [TestCase(5, 10, 200, PlaneParameters.MinRange - 1, 4, 5, 20,
+                "Тест на создание объекта PlaneParameters с некорректными значениями высоты 2")]
+        [TestCase(5, 10, 200, 9, 4, 5, 20,
             TestName =
-                "Тест на создание объекта PlaneParameters с некорректными значениями дистанции")]
-        [TestCase(5, 10, 200, 30, 4, PlaneParameters.MinThickness - 1, 20,
+                "Тест на создание объекта PlaneParameters с некорректными значениями дистанции 2")]
+        [TestCase(5, 10, 200, 30, 4, 2, 20,
             TestName =
-                "Тест на создание объекта PlaneParameters с некорректными значениями толщины")]
-        [TestCase(5, 10, 200, 30, 4, 5, PlaneParameters.MinWidth - 1,
+                "Тест на создание объекта PlaneParameters с некорректными значениями толщины 2")]
+        [TestCase(5, 10, 200, 30, 4, 5, 9,
             TestName =
-                "Тест на создание объекта PlaneParameters с некорректными значениями ширины")]
+                "Тест на создание объекта PlaneParameters с некорректными значениями ширины 2")]
         public void PlaneParameterConstructor_NegativeTest
         (double diameter, double distance, double height, double length,
             int numberOfHoles, double thickness, double width)
         {
-            Assert.Throws<ArgumentException>(() => new PlaneParameters(diameter, distance,
+            Assert.Throws<ArgumentOutOfRangeException>(() => new PlaneParameters(diameter, distance,
                 height, length,
                 numberOfHoles, thickness, width));
         }

@@ -166,7 +166,7 @@ namespace Angles.Model
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException(
+                    throw new ArgumentOutOfRangeException(
                         "Количество отверстий не может быть отрицательным или равно 0!");
                 }
 
@@ -215,6 +215,17 @@ namespace Angles.Model
                 Convert.ToInt32(
                     Math.Truncate((height - length - distance) / (diameter + 5)));
 
+            Diameter = diameter;
+            Distance = distance;
+            Height = height;
+            Length = length;
+            NumberOfHoles = numberOfHoles;
+            Thickness = thickness;
+            Width = width;
+            DistanceBetweenHoles =
+                (Height - Distance -
+                 Length) / (NumberOfHoles - 1);
+
             if (numberOfHoles == 1)
             {
                 if (distance + diameter / 2 > height)
@@ -240,16 +251,7 @@ namespace Angles.Model
             }
 
 
-            Diameter = diameter;
-            Distance = distance;
-            Height = height;
-            Length = length;
-            NumberOfHoles = numberOfHoles;
-            Thickness = thickness;
-            Width = width;
-            DistanceBetweenHoles =
-                (Height - Distance -
-                 Length) / (NumberOfHoles - 1);
+
         }
 
         #endregion
