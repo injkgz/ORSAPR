@@ -123,7 +123,7 @@ namespace Angles.Model
         {
             get => _diameter;
             private set => _diameter = SetCorrectValue(ParameterType.Diameter, value,
-                MaxDiameter, MaxDiameter);
+                MaxDiameter, MinDiameter);
         }
 
         /// <summary>
@@ -268,16 +268,15 @@ namespace Angles.Model
             double maxValue,
             double minValue)
         {
-            if (value > maxValue ||
-                value < minValue)
+            if (value <= maxValue ||
+                value >= minValue)
             {
-                throw new ArgumentOutOfRangeException(
-                    "Значение : " + value +
-                    " не входит в диапазон допустимых значений для параметра " +
-                    parameterType);
+                return value;
             }
 
-            return value;
+            throw new ArgumentOutOfRangeException(parameterType +
+                                                  ". Значение : " + value +
+                                                  " не входит в диапазон допустимых значений для данного параметра ");
         }
 
         #endregion

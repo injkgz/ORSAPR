@@ -128,27 +128,22 @@ namespace Angles.View
         {
             try
             {
+                var plane = new PlaneParameters(
+                    Convert.ToDouble(diameterTextBox.Text),
+                    Convert.ToDouble(distanceTextBox.Text),
+                    Convert.ToDouble(heightTextBox.Text),
+                    Convert.ToDouble(lengthTextBox.Text),
+                    Convert.ToInt32(numberOfHolesTextBox.Text),
+                    Convert.ToDouble(thicknessTextBox.Text),
+                    Convert.ToDouble(widthTextBox.Text));
+
                 if (firstPlaneRadioButton.Checked)
                 {
-                    _planeXOY = new PlaneParameters(
-                        Convert.ToDouble(diameterTextBox.Text),
-                        Convert.ToDouble(distanceTextBox.Text),
-                        Convert.ToDouble(heightTextBox.Text),
-                        Convert.ToDouble(lengthTextBox.Text),
-                        Convert.ToInt32(numberOfHolesTextBox.Text),
-                        Convert.ToDouble(thicknessTextBox.Text),
-                        Convert.ToDouble(widthTextBox.Text));
+                    _planeXOY = plane;
                 }
                 else
                 {
-                    _planeYOZ = new PlaneParameters(
-                        Convert.ToDouble(diameterTextBox.Text),
-                        Convert.ToDouble(distanceTextBox.Text),
-                        Convert.ToDouble(heightTextBox.Text),
-                        Convert.ToDouble(lengthTextBox.Text),
-                        Convert.ToInt32(numberOfHolesTextBox.Text),
-                        Convert.ToDouble(thicknessTextBox.Text),
-                        Convert.ToDouble(widthTextBox.Text));
+                    _planeYOZ = plane;
                 }
             }
             catch (Exception exception)
@@ -157,19 +152,21 @@ namespace Angles.View
                     exception.Message);
             }
 
-            if (_planeXOY != null && _planeYOZ != null)
+            if (_planeXOY == null || _planeYOZ == null)
             {
-                if (!(_planeXOY.Width == _planeYOZ.Width &&
-                      _planeXOY.Thickness == _planeYOZ.Thickness))
-                {
-                    buildButton.Enabled = false;
-                    MessageBox.Show(
-                        "Ширина и толщина каждой плоскости обязательно должны быть равны!");
-                }
-                else
-                {
-                    buildButton.Enabled = true;
-                }
+                return;
+            }
+
+            if (!(_planeXOY.Width == _planeYOZ.Width &&
+                  _planeXOY.Thickness == _planeYOZ.Thickness))
+            {
+                buildButton.Enabled = false;
+                MessageBox.Show(
+                    "Ширина и толщина каждой плоскости обязательно должны быть равны!");
+            }
+            else
+            {
+                buildButton.Enabled = true;
             }
         }
 
