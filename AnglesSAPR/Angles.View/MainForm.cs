@@ -35,6 +35,7 @@ namespace Angles.View
         public MainForm()
         {
             InitializeComponent();
+            buildButton.Enabled = false;
         }
 
         #endregion
@@ -48,16 +49,8 @@ namespace Angles.View
         /// <param name="e"></param>
         private void buildButton_Click(object sender, EventArgs e)
         {
-            if (AngleValidator.ValidateAngle(_planeXOY, _planeYOZ))
-            {
-                _builder.StartKompas();
-                _builder.Build(_planeXOY, _planeYOZ);
-            }
-            else
-            {
-                MessageBox.Show(
-                    "Сначала введите корректно параметры обоих плоскостей!\nШирина и толщина каждой плоскости обязательно должны быть равны!");
-            }
+            _builder.StartKompas();
+            _builder.Build(_planeXOY, _planeYOZ);
         }
 
         /// <summary>
@@ -166,10 +159,16 @@ namespace Angles.View
 
             if (_planeXOY != null && _planeYOZ != null)
             {
-                if (!AngleValidator.ValidateAngle(_planeXOY, _planeYOZ))
+                if (!(_planeXOY.Width == _planeYOZ.Width &&
+                      _planeXOY.Thickness == _planeYOZ.Thickness))
                 {
+                    buildButton.Enabled = false;
                     MessageBox.Show(
                         "Ширина и толщина каждой плоскости обязательно должны быть равны!");
+                }
+                else
+                {
+                    buildButton.Enabled = true;
                 }
             }
         }

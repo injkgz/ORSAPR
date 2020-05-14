@@ -7,6 +7,60 @@ namespace Angles.Model
     /// </summary>
     public class PlaneParameters
     {
+        #region Constants
+
+        /// <summary>
+        ///     Максимальное значение высоты
+        /// </summary>
+        private const double MaxHeight = 200;
+
+        /// <summary>
+        ///     Минимальное значение высоты
+        /// </summary>
+        private const double MinHeight = 50;
+
+        /// <summary>
+        ///     Максимальное значение ширины
+        /// </summary>
+        private const double MaxWidth = 100;
+
+        /// <summary>
+        ///     Минимальное значение ширины
+        /// </summary>
+        private const double MinWidth = 10;
+
+        /// <summary>
+        ///     Минимальное значение диаметра
+        /// </summary>
+        private const double MinDiameter = 5;
+
+        /// <summary>
+        ///     Максимальное значение диаметра
+        /// </summary>
+        private const double MaxDiameter = 20;
+
+        /// <summary>
+        ///     Минимальное значение толщины
+        /// </summary>
+        private const double MinThickness = 3;
+
+        /// <summary>
+        ///     Максимальное значение толщины
+        /// </summary>
+        private const double MaxThickness = 20;
+
+        /// <summary>
+        ///     Минимальное значение расстояния
+        /// </summary>
+        private const double MinRange = 10;
+
+        /// <summary>
+        ///     Максимальное значение расстояния
+        /// </summary>
+        private const double MaxRange = 170;
+
+        #endregion
+
         #region Private fields
 
         /// <summary>
@@ -68,18 +122,8 @@ namespace Angles.Model
         public double Diameter
         {
             get => _diameter;
-            private set
-            {
-                if (value < AngleValidator.MinDiameter ||
-                    value > AngleValidator.MaxDiameter)
-                {
-                    throw new ArgumentException("Диаметр должен быть в пределах от " +
-                                                AngleValidator.MinDiameter + " до " +
-                                                AngleValidator.MaxDiameter + "!");
-                }
-
-                _diameter = value;
-            }
+            private set => _diameter = SetCorrectValue(ParameterType.Diameter, value,
+                MaxDiameter, MaxDiameter);
         }
 
         /// <summary>
@@ -88,17 +132,8 @@ namespace Angles.Model
         public double Distance
         {
             get => _distance;
-            set
-            {
-                if (value < AngleValidator.MinRange || value > AngleValidator.MaxRange)
-                {
-                    throw new ArgumentException("Расстояние должно быть в пределах от " +
-                                                AngleValidator.MinRange + " до " +
-                                                AngleValidator.MaxRange + "!");
-                }
-
-                _distance = value;
-            }
+            set => _distance =
+                SetCorrectValue(ParameterType.Range, value, MaxRange, MinRange);
         }
 
         /// <summary>
@@ -107,17 +142,8 @@ namespace Angles.Model
         public double Height
         {
             get => _height;
-            private set
-            {
-                if (value < AngleValidator.MinHeight || value > AngleValidator.MaxHeight)
-                {
-                    throw new ArgumentException("Высота должна быть в пределах от " +
-                                                AngleValidator.MinHeight + " до " +
-                                                AngleValidator.MaxHeight + "!");
-                }
-
-                _height = value;
-            }
+            private set => _height =
+                SetCorrectValue(ParameterType.Height, value, MaxHeight, MinHeight);
         }
 
         /// <summary>
@@ -126,17 +152,8 @@ namespace Angles.Model
         public double Length
         {
             get => _length;
-            private set
-            {
-                if (value < AngleValidator.MinRange || value > AngleValidator.MaxRange)
-                {
-                    throw new ArgumentException("Расстояние должно быть в пределах от " +
-                                                AngleValidator.MinRange + " до " +
-                                                AngleValidator.MaxRange + "!");
-                }
-
-                _length = value;
-            }
+            private set => _length =
+                SetCorrectValue(ParameterType.Range, value, MaxRange, MinRange);
         }
 
         /// <summary>
@@ -163,18 +180,8 @@ namespace Angles.Model
         public double Thickness
         {
             get => _thickness;
-            private set
-            {
-                if (value < AngleValidator.MinThickness ||
-                    value > AngleValidator.MaxThickness)
-                {
-                    throw new ArgumentException("Толщина должна быть в пределах от " +
-                                                AngleValidator.MinThickness + " до " +
-                                                AngleValidator.MaxThickness + "!");
-                }
-
-                _thickness = value;
-            }
+            private set => _thickness = SetCorrectValue(ParameterType.Thickness, value,
+                MaxThickness, MinThickness);
         }
 
         /// <summary>
@@ -183,17 +190,8 @@ namespace Angles.Model
         public double Width
         {
             get => _width;
-            private set
-            {
-                if (value < AngleValidator.MinWidth || value > AngleValidator.MaxWidth)
-                {
-                    throw new ArgumentException("Ширина должна быть в пределах от " +
-                                                AngleValidator.MinWidth + " до " +
-                                                AngleValidator.MaxWidth + "!");
-                }
-
-                _width = value;
-            }
+            private set => _width =
+                SetCorrectValue(ParameterType.Width, value, MaxWidth, MinWidth);
         }
 
         #endregion
@@ -235,16 +233,10 @@ namespace Angles.Model
                 }
             }
 
-            if (width / 2 <= diameter)
+            if (width / 2 <= diameter || height / 2 <= diameter)
             {
                 throw new ArgumentException(
-                    "Диаметр не может быть больше ширины уголка или равен ей");
-            }
-
-            if (height / 2 <= diameter)
-            {
-                throw new ArgumentException(
-                    "Диаметр не может быть больше ширины уголка или равен ей");
+                    "Диаметр не может быть больше ширины/длины уголка или равен ей");
             }
 
 
@@ -258,6 +250,34 @@ namespace Angles.Model
             DistanceBetweenHoles =
                 (Height - Distance -
                  Length) / (NumberOfHoles - 1);
+        }
+
+        #endregion
+
+        #region Private methods
+
+        /// <summary>
+        ///     Установка корректных значений параметра
+        /// </summary>
+        /// <param name="parameterType">Тип параметра</param>
+        /// <param name="value">Проверяемое значение</param>
+        /// <param name="maxValue">Максимальное значение</param>
+        /// <param name="minValue">Минимальное значение</param>
+        /// <returns></returns>
+        private double SetCorrectValue(ParameterType parameterType, double value,
+            double maxValue,
+            double minValue)
+        {
+            if (value > maxValue ||
+                value < minValue)
+            {
+                throw new ArgumentOutOfRangeException(
+                    "Значение : " + value +
+                    " не входит в диапазон допустимых значений для параметра " +
+                    parameterType);
+            }
+
+            return value;
         }
 
         #endregion

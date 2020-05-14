@@ -41,43 +41,43 @@ namespace Angles.ModelTests
         }
 
         [Test]
-        [TestCase(AngleValidator.MaxDiameter + 1, 10, 200, 30, 4, 5, 20,
+        [TestCase(PlaneParameters.MaxDiameter + 1, 10, 200, 30, 4, 5, 20,
             TestName =
                 "Тест на создание объекта PlaneParameters с некорректными значениями диаметра")]
-        [TestCase(5, AngleValidator.MaxRange + 1, 200, 30, 4, 5, 20,
+        [TestCase(5, PlaneParameters.MaxRange + 1, 200, 30, 4, 5, 20,
             TestName =
                 "Тест на создание объекта PlaneParameters с некорректными значениями дистанции")]
-        [TestCase(5, 10, AngleValidator.MaxHeight + 1, 30, 4, 5, 20,
+        [TestCase(5, 10, PlaneParameters.MaxHeight + 1, 30, 4, 5, 20,
             TestName =
                 "Тест на создание объекта PlaneParameters с некорректными значениями высоты")]
-        [TestCase(5, 10, 200, AngleValidator.MaxRange + 1, 4, 5, 20,
+        [TestCase(5, 10, 200, PlaneParameters.MaxRange + 1, 4, 5, 20,
             TestName =
                 "Тест на создание объекта PlaneParameters с некорректными значениями дистанции")]
         [TestCase(5, 10, 200, 30, -1, 5, 20,
             TestName =
                 "Тест на создание объекта PlaneParameters с некорректными значениями количества отверстий")]
-        [TestCase(5, 10, 200, 30, 4, AngleValidator.MaxThickness + 1, 20,
+        [TestCase(5, 10, 200, 30, 4, PlaneParameters.MaxThickness + 1, 20,
             TestName =
                 "Тест на создание объекта PlaneParameters с некорректными значениями толщины")]
-        [TestCase(5, 10, 200, 30, 4, 5, AngleValidator.MaxWidth + 1,
+        [TestCase(5, 10, 200, 30, 4, 5, PlaneParameters.MaxWidth + 1,
             TestName =
                 "Тест на создание объекта PlaneParameters с некорректными значениями ширины")]
-        [TestCase(AngleValidator.MinDiameter - 1, 10, 200, 30, 4, 5, 20,
+        [TestCase(PlaneParameters.MinDiameter - 1, 10, 200, 30, 4, 5, 20,
             TestName =
                 "Тест на создание объекта PlaneParameters с некорректными значениями диаметра")]
-        [TestCase(5, AngleValidator.MinRange - 1, 200, 30, 4, 5, 20,
+        [TestCase(5, PlaneParameters.MinRange - 1, 200, 30, 4, 5, 20,
             TestName =
                 "Тест на создание объекта PlaneParameters с некорректными значениями дистанции")]
-        [TestCase(5, 10, AngleValidator.MinHeight - 1, 30, 4, 5, 20,
+        [TestCase(5, 10, PlaneParameters.MinHeight - 1, 30, 4, 5, 20,
             TestName =
                 "Тест на создание объекта PlaneParameters с некорректными значениями высоты")]
-        [TestCase(5, 10, 200, AngleValidator.MinRange - 1, 4, 5, 20,
+        [TestCase(5, 10, 200, PlaneParameters.MinRange - 1, 4, 5, 20,
             TestName =
                 "Тест на создание объекта PlaneParameters с некорректными значениями дистанции")]
-        [TestCase(5, 10, 200, 30, 4, AngleValidator.MinThickness - 1, 20,
+        [TestCase(5, 10, 200, 30, 4, PlaneParameters.MinThickness - 1, 20,
             TestName =
                 "Тест на создание объекта PlaneParameters с некорректными значениями толщины")]
-        [TestCase(5, 10, 200, 30, 4, 5, AngleValidator.MinWidth - 1,
+        [TestCase(5, 10, 200, 30, 4, 5, PlaneParameters.MinWidth - 1,
             TestName =
                 "Тест на создание объекта PlaneParameters с некорректными значениями ширины")]
         public void PlaneParameterConstructor_NegativeTest
